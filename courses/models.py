@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 from django.db.models.fields.related import ForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericForeignKey
+from django.template.loader import render_to_string
+
 from .fields import OrderField
 # Create your models here.
 class Subject(models.Model):
@@ -15,6 +17,8 @@ class Subject(models.Model):
 class Course(models.Model):
     owner=models.ForeignKey(User, related_name='course_created',
     on_delete=models.CASCADE)
+    students=models.ManyToManyField(User, related_name='courses_joined',
+    blank=True)
     subject=models.ForeignKey(Subject, related_name='courses',
     on_delete=models.CASCADE)
     title=models.CharField(max_length=200)
@@ -60,6 +64,9 @@ class ItemBase(models.Model):
         abstract=True
     def __str__(self):
         return self.title
+    def render(self):
+        return render_to_string(f"courses/content/{self._meta.model_name}.html",
+        {'item':self})
 class Text(ItemBase):
     content=models.TextField()
 class File(ItemBase):
