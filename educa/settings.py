@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 from django.urls import reverse_lazy
 from pathlib import Path
+import os
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -41,7 +43,7 @@ INSTALLED_APPS = [
     'chat',
     'students',
     'embed_video',
-    
+    'channels',
     
 ]
 
@@ -128,3 +130,13 @@ STATICFILES_DIRS=[str(BASE_DIR.joinpath('static'))]
 LOGIN_REDIRECT_URL=reverse_lazy('student_course_list')
 MEDIA_URL='/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+ASGI_APPLICATION = 'educa.routing.application'
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            'hosts': [('127.0.0.1', 6379)],
+        },
+    },
+}

@@ -23,6 +23,7 @@ path('subject/<slug:subject>/', views.CourseListView.as_view(),name='course_list
 path('<slug:slug>/', views.CourseDetailView.as_view(),
      name='course_detail'),
 
+
 ]
 
 

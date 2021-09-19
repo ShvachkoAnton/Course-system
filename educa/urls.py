@@ -26,7 +26,9 @@ urlpatterns = [
     path('courses/', include('courses.urls')),
     path('', CourseListView.as_view(), name='course_list'),
     path('students/', include('students.urls')),
+    path('chat/', include('chat.urls', namespace='chat'))
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,
                           document_root=settings.MEDIA_ROOT)
+                        
