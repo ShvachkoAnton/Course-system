@@ -8,6 +8,7 @@ django = "*"
 django-embed-video = "*"
 channels-redis = "*"
 psycopg2-binary = "*"
+uwsgi = "*"
 
 [dev-packages]
 
